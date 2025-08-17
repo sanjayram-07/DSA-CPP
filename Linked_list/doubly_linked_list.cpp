@@ -78,6 +78,9 @@ class doubly{
                                 return;}
                         node *temp = head;
                         head = head->next;
+                        if (head != nullptr) {
+                            head->pre = nullptr;  
+                         }        
                         delete temp;
                         cout<<"The node is deleted"<<endl;
                 }
