@@ -1,3 +1,4 @@
+
 #include<iostream>
 using namespace std;
 class node{
@@ -16,6 +17,18 @@ class circular_linked
         public:
                 node* head = nullptr;
                 node* temp = nullptr;
+                int length()
+                {
+                    int i=0;
+                    temp = head;
+                    while(temp->next !=head)
+                    {
+                        temp= temp->next;
+                        i++;
+                    }
+                    i++;
+                    return i;
+                }
                 void insert_back(int val)
                 {
 
@@ -57,8 +70,9 @@ class circular_linked
 
                         }
                 }
-                void insert_pos(int num , int pos)
+                void insert_pos(int val ,int pos)
                 {
+                        node *newnode = new node(val);
                         temp = head;
                         int i=0;
                         if(pos ==0)
@@ -66,31 +80,36 @@ class circular_linked
                                 insert_front(val);
                                 return;
                         }
+                        if(pos ==length())
+                        {
+                            insert_back(val);
+                            return;
+                        }
                         while(i < pos-1 && temp->next!=head)
                         {
                                 temp = temp->next;
                                 i++;
 
                         }
-                        if(temp == head || temp->next!=head)
+                        if( temp->next==head)
                         {
-                                cout<<"Invalid position";
+                                cout<<"Invalid position"<<endl;
                                 return;
                         }
-                        node * temp2 = temp1->next;
-                        temp1->next = temp2->next;
-                        delete temp2;
-                        cout<<"The node is deleted"<<endl;
+                        newnode->next = temp->next;
+                        temp->next = newnode;
 
                 }
                 void display(){
                         temp = head;
+                        cout<<"LIST : ";
                                 while(temp->next!=head)
                         {
                                 cout<<temp->data<<" ";
                                 temp =temp->next;
                         }
                                 cout<<temp->data;
+                                cout<<endl;
                 }
 
 
@@ -98,10 +117,49 @@ class circular_linked
 int main()
 {
         circular_linked ll;
-        ll.insert_front(7);
-        ll.insert_back(5);
-        ll.insert_back(45);
-        ll.insert_front(34);
-        ll.insert_pos(23,1);
-        ll.display();
+        int choice;
+        do{
+            cout<<"1.insert_back"<<endl;
+            cout<<"2.insert_front"<<endl;
+            cout<<"3.insert_pos"<<endl;
+            cout<<"4.display()"<<endl;
+            cout<<"0.exit"<<endl;
+            cout<<"Enter your choice: ";
+            cin>>choice;
+            switch(choice)
+            {
+                case 1:
+                    int num;
+                    cout<<"Enter a number:";
+                    cin>>num;
+                    ll.insert_back(num);
+                    break;
+                case 2:
+                    int num1;
+                    cout<<"Enter a number: ";
+                    cin>>num1;
+                    ll.insert_front(num1);
+                    break;
+
+                case 3:
+                    int pos;
+                    int num2;
+                    cout<<"Enter a number : ";
+                    cin>>num2;
+                    cout<<"Enter the position : ";
+                    cin>>pos;
+                    ll.insert_pos(num2,pos);
+                    break;
+
+                case 4:
+                    ll.display();
+                    break;
+                case 0:
+                    break;
+                default:
+                    break;
+            }
+        }while(choice!=0);
+        
+       
 }
