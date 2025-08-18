@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 class eval{
-Press ENpublic:type command to continue
+    public:
                 int top =-1;
                 int arr[20];
                 string ans;
