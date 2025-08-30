@@ -1,3 +1,4 @@
+// Online C++ compiler to run C++ program online
 
 #include<iostream>
 using namespace std;
@@ -19,6 +20,7 @@ class circular_linked
                 node* temp = nullptr;
                 int length()
                 {
+                    if (head == nullptr) return 0;
                     int i=0;
                     temp = head;
                     while(temp->next !=head)
@@ -40,6 +42,7 @@ class circular_linked
                         }
                         else
                         {
+                                temp = head;
                                 while(temp->next!=head)
                                 {
                                         temp = temp->next;
@@ -58,16 +61,14 @@ class circular_linked
                                 temp->next = head;
                         }
                         else{
-                                temp = head;
-                                while(temp->next!=head)
-                                {
-                                        temp= temp->next;
-                                }
+                            temp = head;
+                            while(temp->next!=head)
+                            {
+                                temp = temp->next;
+                            }
                                 newnode->next = head;
                                 head = newnode;
-                                temp->next=head;
-
-
+                                temp->next = head;
                         }
                 }
                 void insert_pos(int val ,int pos)
@@ -75,6 +76,11 @@ class circular_linked
                         node *newnode = new node(val);
                         temp = head;
                         int i=0;
+                        if(pos <0 || pos > length())
+                        {
+                                cout<<"Invalid position: "<<endl;
+                                return;
+                        }
                         if(pos ==0)
                         {
                                 insert_front(val);
@@ -91,11 +97,7 @@ class circular_linked
                                 i++;
 
                         }
-                        if( temp->next==head)
-                        {
-                                cout<<"Invalid position"<<endl;
-                                return;
-                        }
+                        
                         newnode->next = temp->next;
                         temp->next = newnode;
 
